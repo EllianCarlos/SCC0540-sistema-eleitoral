@@ -8,7 +8,6 @@ export class AppController {
   @Get()
   @Render('index')
   async index(): Promise<any> {
-    this.appService.initializeApp();
     return { message: 'est est est, isso é um test' };
   }
 }

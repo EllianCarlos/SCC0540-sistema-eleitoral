@@ -1,11 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Pool, PoolClient, PoolConfig } from 'pg';
+import { InitialMigration } from './migrations/InitialMigration';
+import { Migration } from './migrations/Migration';
 
 @Injectable()
 export class DatabaseService {
   private pool: Pool;
-  private poolClients: PoolClient[];
+  private poolClients: PoolClient[] = [];
 
   constructor(private readonly configService: ConfigService) {
     const clientOptions: PoolConfig = {
@@ -19,6 +21,7 @@ export class DatabaseService {
       connectionTimeoutMillis: 2000,
     };
     this.pool = new Pool(clientOptions);
+    this.executeMigrations();
   }
 
   private async connect(): Promise<PoolClient> {
@@ -37,6 +40,39 @@ export class DatabaseService {
   public async releaseAll(): Promise<void> {
     await Promise.all(
       this.poolClients.map((poolClient: PoolClient) => poolClient.release()),
+    );
+  }
+
+  private async executeMigrations(): Promise<void> {
+    await this.pool.query(
+      `CREATE TABLE IF NOT EXISTS Migrations (
+        migration_name VARCHAR(127) NOT NULL,
+        creation_date timestamp DEFAULT NOW() NOT NULL,
+        CONSTRAINT migrationName_pk PRIMARY KEY(migration_name)
+      );`,
+    );
+    const initialMigration = new InitialMigration();
+    const migrations: Migration[] = [initialMigration];
+
+    const result = await this.pool.query(
+      'SELECT migration_name FROM migrations',
+    );
+    const migrationsNames = result.rows.map((row) => row.migration_name);
+
+    await Promise.all(
+      migrations.map(async (migration: Migration): Promise<any> => {
+        if (!migrationsNames.includes(migration.MigrationName)) {
+          return this.executeMigration(migration);
+        }
+      }),
+    );
+    Logger.log('All migrations were successfully executed');
+  }
+
+  private async executeMigration(migration: Migration): Promise<void> {
+    await migration.up(this);
+    await this.pool.query(
+      `INSERT INTO Migrations (migration_name) VALUES ('${migration.MigrationName}');`,
     );
   }
 }
