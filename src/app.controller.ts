@@ -26,6 +26,9 @@ export class AppController {
   @Get('pessoas')
   @Render('pessoas')
   async pessoas(): Promise<any> {
-    return {};
+    const pessoas = await this.appService.getAllPessoas();
+    return {
+      pessoas,
+    };
   }
 }

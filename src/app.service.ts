@@ -13,4 +13,13 @@ export class AppService {
     Logger.log(JSON.stringify(cargoClass));
     return cargoClass;
   }
+
+  public async getAllPessoas(): Promise<any> {
+    const pessoasResults = await this.databaseService.executeQuery('SELECT * FROM pessoa_fisica');
+
+    // .. tranformar cargoResults to CargoClass
+    const pessoasClass = pessoasResults.rows;
+    Logger.log(JSON.stringify(pessoasClass));
+    return pessoasClass;
+  }
 }
