@@ -22,4 +22,10 @@ export class AppController {
       teste: 'ellian',
     };
   }
+
+  @Get('pessoas')
+  @Render('pessoas')
+  async pessoas(): Promise<any> {
+    return {};
+  }
 }
