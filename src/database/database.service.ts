@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Pool, PoolClient, PoolConfig } from 'pg';
+import { Pool, PoolClient, PoolConfig, QueryResult } from 'pg';
 import { InitialMigration } from './migrations/InitialMigration';
 import { Migration } from './migrations/Migration';
 
@@ -30,7 +30,7 @@ export class DatabaseService {
     return poolClient;
   }
 
-  public async executeQuery(query: string, values?: any[]): Promise<any> {
+  public async executeQuery(query: string, values?: any[]): Promise<QueryResult<any>> {
     const poolClient = await this.connect();
     const result = await poolClient.query(query, values);
     poolClient.release();
@@ -38,9 +38,7 @@ export class DatabaseService {
   }
 
   public async releaseAll(): Promise<void> {
-    await Promise.all(
-      this.poolClients.map((poolClient: PoolClient) => poolClient.release()),
-    );
+    await Promise.all(this.poolClients.map((poolClient: PoolClient) => poolClient.release()));
   }
 
   private async executeMigrations(): Promise<void> {
@@ -54,9 +52,7 @@ export class DatabaseService {
     const initialMigration = new InitialMigration();
     const migrations: Migration[] = [initialMigration];
 
-    const result = await this.pool.query(
-      'SELECT migration_name FROM migrations',
-    );
+    const result = await this.pool.query('SELECT migration_name FROM migrations');
     const migrationsNames = result.rows.map((row) => row.migration_name);
 
     await Promise.all(
@@ -71,8 +67,6 @@ export class DatabaseService {
 
   private async executeMigration(migration: Migration): Promise<void> {
     await migration.up(this);
-    await this.pool.query(
-      `INSERT INTO Migrations (migration_name) VALUES ('${migration.MigrationName}');`,
-    );
+    await this.pool.query(`INSERT INTO Migrations (migration_name) VALUES ('${migration.MigrationName}');`);
   }
 }

@@ -137,7 +137,7 @@ export class InitialMigration implements Migration {
 
   async down(databaseService: DatabaseService): Promise<void> {
     await databaseService.executeQuery(`
-      DROP TABLE pargo CASCADE;
+      DROP TABLE cargo CASCADE;
       DROP TABLE pessoa_fisica CASCADE;
       DROP TABLE pleito CASCADE;
       DROP TABLE programa_partido CASCADE;
