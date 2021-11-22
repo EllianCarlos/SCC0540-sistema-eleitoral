@@ -27,6 +27,7 @@
     "@nestjs/config": "^1.1.0",
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
+    "@types/hbs": "^4.0.1",
     "@types/pg": "^8.6.1",
     "hbs": "^4.2.0",
     "pg": "^8.7.1",

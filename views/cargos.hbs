@@ -12,6 +12,8 @@
   </head>
 
   <body>
+    <script src="scripts/deleteEvent.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <header class='p-3 bg-dark text-white'>
       <div class='container'>
         <div class='d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start'>
@@ -65,7 +67,7 @@
                   {{this.abrangencia}}
                 </td>
                 <td>
-                  <button type="button" class="btn btn-danger">Remover</button>
+                  <button type="button" class="btn btn-danger {{concat @index 'dclass'}}" onclick="{{delete ../table @index this.nome this.abrangencia}}">Remover</button>
                 </td>
               </tr>
             {{/each}}

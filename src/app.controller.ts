@@ -1,4 +1,4 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Redirect, Render } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -19,7 +19,7 @@ export class AppController {
     const cargos = await this.appService.getAllCargos();
     return {
       cargos,
-      teste: 'ellian',
+      table: 'cargo',
     };
   }
 
@@ -29,6 +29,12 @@ export class AppController {
     const pessoas = await this.appService.getAllPessoas();
     return {
       pessoas,
+      table: 'pessoa_fisica',
     };
+  }
+
+  @Delete('cargo')
+  async deleteCargos(@Body() body: any): Promise<any> {
+    await this.appService.deleteCargos(body.pk);
   }
 }
