@@ -49,24 +49,28 @@
     <div class='container'>
       <main class='table-responsive mt-3' role='main'>
         <table class="table table-striped table-sm">
-              <thead>
-                <tr>
-                  <th>Nome do Cargo</th>
-                  <th>Abrangência</th>
-                </tr>
-              </thead>
-              {{#each cargos}}
-                <tr>
-                  <td>
-                    {{this.nome}}
-                  </td>
-                  <td>
-                    {{this.abrangencia}}
-                  </td>
-                </tr>
-              {{/each}}
-              </tbody>
-            </table>
+            <thead>
+              <tr>
+                <th>Nome do Cargo</th>
+                <th>Abrangência</th>
+                <th>Remover</th>
+              </tr>
+            </thead>
+            {{#each cargos}}
+              <tr>
+                <td>
+                  {{this.nome}}
+                </td>
+                <td>
+                  {{this.abrangencia}}
+                </td>
+                <td>
+                  <button type="button" class="btn btn-danger">Remover</button>
+                </td>
+              </tr>
+            {{/each}}
+            </tbody>
+        </table>
       </main>
     </div>
   </body>
