@@ -34,7 +34,7 @@
           </a>
           <ul class='nav col-6 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0'>
             <li><a href='/' class='nav-link px-3 text-secondary'>Home</a></li>
-            <li><a href='#' class='nav-link px-3 text-white'>Cargos</a></li>
+            <li><a href='cargos' class='nav-link px-3 text-white'>Cargos</a></li>
             <li><a href='pessoas' class='nav-link px-3 text-white'>Pessoa Fisica</a></li>
             <li><a href='pleitos' class='nav-link px-3 text-white'>Pleito</a></li>
             <li><a href='programas' class='nav-link px-3 text-white'>Programa</a></li>
@@ -43,7 +43,7 @@
             <li><a href='candidaturas' class='nav-link px-3 text-white'>Candidatura</a></li>
             <li><a href='doacoesPf' class='nav-link px-3 text-white'>Doações PF</a></li>
             <li><a href='doacoesPj' class='nav-link px-3 text-white'>Doações PJ</a></li>
-            <li><a href='equipes' class='nav-link px-3 text-white'>Equipe</a></li>
+            <li><a href='#' class='nav-link px-3 text-white'>Equipe</a></li>
             <li><a href='apoiadores' class='nav-link px-3 text-white'>Apoiador </a></li>
           </ul>
         </div>
@@ -54,21 +54,33 @@
         <table class="table table-striped table-sm">
             <thead>
               <tr>
-                <th>Nome do Cargo</th>
-                <th>Abrangência</th>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Candidato</th>
+                <th>Ano</th>
+                <th>Integrantes</th>
                 <th>Remover</th>
               </tr>
             </thead>
-            {{#each cargos}}
+            {{#each equipes}}
               <tr>
                 <td>
-                  {{this.nome}}
+                  {{this.id_equipe}}
                 </td>
                 <td>
-                  {{this.abrangencia}}
+                  {{this.nome_equipe}}
                 </td>
                 <td>
-                  <button type="button" class="btn btn-danger {{concat @index 'dclass'}}" onclick="{{delete ../table @index this.nome this.abrangencia}}">Remover</button>
+                  {{this.candidato}}
+                </td>
+                <td>
+                  {{this.ano_candidatura}}
+                </td>
+                <td>
+                  {{this.num_apoiadores}}
+                </td>
+                <td>
+                  <button type="button" class="btn btn-danger {{concat @index 'dclass'}}"onclick="{{delete ../table @index this.candidato this.ano_candidatura}}">Remover</button>
                 </td>
               </tr>
             {{/each}}
