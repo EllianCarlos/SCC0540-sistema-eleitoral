@@ -27,6 +27,15 @@ async function bootstrap() {
       }
     })})`;
   });
+  hbs.registerHelper('better_date', function (date: Date) {
+    if (date) {
+      return date.toLocaleString('pt-BR', {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+      });
+    }
+  });
   app.setViewEngine('hbs');
 
   await app.listen(3000);

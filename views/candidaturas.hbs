@@ -66,6 +66,7 @@
                 <th>Votos</th>
                 <th>Pleito</th>
                 <th>Remover</th>
+                <th>Relatório</th>
               </tr>
             </thead>
             {{#each candidaturas}}
@@ -104,7 +105,10 @@
                   {{this.num_pleito}}
                 </td>
                 <td>
-                  <button type="button" class="btn btn-danger {{concat @index 'dclass'}}"onclick="{{delete ../table @index this.candidato this.ano_candidatura}}">Remover</button>
+                  <button type="button" class="btn btn-danger {{concat @index 'dclass'}}" onclick="{{delete ../table @index this.candidato this.ano_candidatura}}">Remover</button>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-info {{concat @index 'iclass'}}" onclick="getRelatorio('{{cargo}}', '{{abrangencia}}', '{{ano_candidatura}}', '{{pais}}'{{#if estado}} ,'{{estado}}' {{/if}} {{#if municipio}} ,'{{municipio}}' {{/if}})">Relatório</button>
                 </td>
               </tr>
             {{/each}}

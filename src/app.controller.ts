@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Redirect, Render } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Query, Render } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -10,6 +10,22 @@ export class AppController {
   async index(): Promise<any> {
     return {
       message: 'est est est, isso é um test',
+    };
+  }
+
+  @Get('relatorio')
+  @Render('relatorio')
+  async relatorio(
+    @Query('cargo') cargo_c: string,
+    @Query('abrangencia') abrangencia: string,
+    @Query('ano') ano: string,
+    @Query('pais') pais: string,
+    @Query('estado') estado: string = null,
+    @Query('municipio') municipio: string = null,
+  ): Promise<any> {
+    const candidaturas = await this.appService.generateRelatorio(cargo_c, abrangencia, ano, pais, estado, municipio);
+    return {
+      candidaturas,
     };
   }
 

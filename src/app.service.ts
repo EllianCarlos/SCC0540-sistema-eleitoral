@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { DatabaseService } from './database/database.service';
 import {
   apoiador,
@@ -13,6 +13,7 @@ import {
   processo_judicial,
   programa_partido,
 } from './database/models';
+import { relatorio } from './database/models/relatotio';
 import { TransformerService } from './transformer/transformer.service';
 
 @Injectable()
@@ -21,6 +22,49 @@ export class AppService {
     private readonly databaseService: DatabaseService,
     private readonly transformerService: TransformerService,
   ) {}
+
+  public async generateRelatorio(
+    cargo_c: string,
+    abrangencia: string,
+    ano: string,
+    pais: string,
+    estado: string,
+    municipio: string | null,
+  ): Promise<relatorio[]> {
+    if (cargo_c && pais && abrangencia && ano) {
+      let q = `
+        SELECT 
+          C.CANDIDATO, PFC.NOME, PFC.DATA_NASC, PFC.FUNCAO AS "funcao_atual", 
+          C.VICE_CPF AS "vice_cpf", PF.NOME AS "vice_nome", PF.DATA_NASC AS "vice_data_nasc", PF.FUNCAO AS "vice_funcao",
+          C.ANO_CANDIDATURA, C.CARGO, C.ABRANGENCIA, C.MUNICIPIO, 
+          C.PARTIDO AS "partido_do_candidato", P.SIGLA AS "partido_do_candidato_sigla", P.PROGRAMA  AS "partido_do_candidato_programa", P.PRESIDENTE AS "partido_do_candidato_presidente",
+          C.VICE_PARTIDO AS "partido_do_vice", P2.SIGLA AS "partido_do_vice_sigla", P2.PROGRAMA  AS "partido_do_vice_programa", P2.PRESIDENTE AS "partido_do_vice_presidente",
+          C.PLEITO, P3."data" AS "data_do_pleito", C.NUM_VOTOS,
+          C.MUNICIPIO, C.ESTADO, C.PAIS
+        FROM CANDIDATURA C 
+          JOIN PESSOA_FISICA PFC ON CANDIDATO = PFC.CPF 
+          LEFT JOIN PESSOA_FISICA PF ON VICE_CPF = PF.CPF 
+          LEFT JOIN PARTIDO P  ON PARTIDO = P.NOME 
+          LEFT JOIN PARTIDO P2 ON VICE_PARTIDO = P2.NOME 
+          LEFT JOIN PLEITO P3 ON P3.ID = C.PLEITO
+        WHERE C.PAIS = $4 AND C.ABRANGENCIA = $2 AND C.ANO_CANDIDATURA = $3 AND C.CARGO = $1
+      `;
+      const values = [cargo_c, abrangencia, ano, pais];
+      if (estado) {
+        q += `AND C.ESTADO = $5`;
+        values.push(estado);
+      }
+      if (municipio) {
+        q += `AND C.MUNICIPIO = $6`;
+        values.push(municipio);
+      }
+      q += `ORDER BY C.NUM_VOTOS DESC;`;
+      const result = await this.databaseService.executeQuery(q, values);
+      return this.transformerService.queryResultToObject<relatorio>(result);
+    } else {
+      throw new Error('Preciso de paramêtros!');
+    }
+  }
 
   public async getAllCargos(): Promise<cargo[]> {
     const cargosResults = await this.databaseService.executeQuery('SELECT * FROM cargo');

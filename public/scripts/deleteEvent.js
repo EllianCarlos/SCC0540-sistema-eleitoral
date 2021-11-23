@@ -15,6 +15,27 @@ async function deleteThis(table, index, ...args) {
     var pppDeleteButton = ppDeleteButton.parentElement;
     pppDeleteButton.removeChild(ppDeleteButton);
   } catch (e) {
-    console.log('ERRO MANEIRO');
+    console.error(e);
+    throw new Error('Erro ao deletar objeto');
+  }
+}
+
+async function getRelatorio(cargo, abrangencia, ano, pais, estado, municipio) {
+  try {
+    const url = await axios.getUri({
+      url: 'http://localhost:3000/relatorio',
+      params: {
+        cargo: escape(cargo),
+        abrangencia: escape(abrangencia),
+        ano: escape(ano),
+        pais: escape(pais),
+        estado: municipio ? escape(estado) : null,
+        municipio: municipio ? escape(municipio) : null,
+      },
+    });
+    window.location.replace(url);
+  } catch (e) {
+    console.error(e);
+    throw new Error('Erro ao gerar relatorio');
   }
 }
