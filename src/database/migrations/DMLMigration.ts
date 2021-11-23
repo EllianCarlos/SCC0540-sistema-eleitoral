@@ -7,13 +7,13 @@ export class DMLMigration implements Migration {
   async up(databaseService: DatabaseService): Promise<void> {
     databaseService.executeQuery(`
       -- Cargos
-      INSERT INTO cargo VALUES('Presidente', 'Federal');
-      INSERT INTO cargo VALUES('Deputado Federal', 'Federal');
-      INSERT INTO cargo VALUES('Governador', 'Estadual');
-      INSERT INTO cargo VALUES('Senador', 'Estadual');
-      INSERT INTO cargo VALUES('Deputado Estadual', 'Estadual');
-      INSERT INTO cargo VALUES('Prefeito', 'Municipal');
-      INSERT INTO cargo VALUES('Vereador', 'Municipal');
+      INSERT INTO cargo VALUES('Presidente', 'Federal', 1);
+      INSERT INTO cargo VALUES('Deputado Federal', 'Federal', 30);
+      INSERT INTO cargo VALUES('Governador', 'Estadual', 1);
+      INSERT INTO cargo VALUES('Senador', 'Estadual', 2);
+      INSERT INTO cargo VALUES('Deputado Estadual', 'Estadual', 45);
+      INSERT INTO cargo VALUES('Prefeito', 'Municipal', 1);
+      INSERT INTO cargo VALUES('Vereador', 'Municipal', 30);
 
       -- Candidatos
       INSERT INTO pessoa_fisica VALUES('5302054755','Tiago da Silva','1957/03/31','Candidato');
@@ -91,7 +91,6 @@ export class DMLMigration implements Migration {
       INSERT INTO pessoa_fisica VALUES('0324674902','Wellington Minussi','1964/06/17','Candidato');
 
       -- Doadores
-      INSERT INTO pessoa_fisica VALUES('4023033408','Julieta Pinto','1982/08/23 12:34:00','Doador');
       INSERT INTO pessoa_fisica VALUES('4023033408','Julieta Pinto','1982/08/30 09:22:00','Doador');
       INSERT INTO pessoa_fisica VALUES('2346293781','Antônio Barros','1980/09/23 17:32:00','Doador');
       INSERT INTO pessoa_fisica VALUES('3929608640','Lavinia Rodrigues','1979/05/03 07:12:00','Doador');
@@ -137,7 +136,7 @@ export class DMLMigration implements Migration {
       INSERT INTO pessoa_fisica VALUES('4516254665','Ágatha Barbosa','1966/12/15 15:40:20','Apoiador');
       INSERT INTO pessoa_fisica VALUES('6512100755','Paulo Moraes','1979/07/21 07:08:09','Apoiador');
       INSERT INTO pessoa_fisica VALUES('4058751547','Gustavo Paniago','1980/12/26 22:40:30','Apoiador');
-      INSERT INTO pessoa_fisica VALUES('6639837393','Selma Silva','1998/10/29 24:50:00','Apoiador');
+      INSERT INTO pessoa_fisica VALUES('6639837393','Selma Silva','1998/10/29 23:50:00','Apoiador');
       INSERT INTO pessoa_fisica VALUES('7553383752','Tiago Leifert','1949/04/07 19:34:03','Apoiador');
       INSERT INTO pessoa_fisica VALUES('6110126191','Matilde Pereira','1959/04/06 14:01:31','Apoiador');
       INSERT INTO pessoa_fisica VALUES('2728374057','Rodolfo Ferreira','1970/11/10 21:06:15','Apoiador');
