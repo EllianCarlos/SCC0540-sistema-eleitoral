@@ -19,6 +19,9 @@ async function bootstrap() {
   });
   hbs.registerHelper('delete', function (tableName, ...args) {
     return `deleteThis('${tableName}', ${args.map((value) => {
+      if (value instanceof Date) {
+        return "'" + value.toISOString() + "'";
+      }
       if (typeof value != 'object') {
         return "'" + value + "'";
       }

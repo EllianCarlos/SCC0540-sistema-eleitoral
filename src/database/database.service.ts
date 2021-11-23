@@ -32,6 +32,7 @@ export class DatabaseService {
   }
 
   public async executeQuery(query: string, values?: any[]): Promise<QueryResult<any>> {
+    Logger.log(query);
     const poolClient = await this.connect();
     const result = await poolClient.query(query, values);
     poolClient.release();

@@ -127,4 +127,54 @@ export class AppController {
   async deleteCargos(@Body() body: any): Promise<any> {
     await this.appService.deleteCargos(body.pk);
   }
+
+  @Delete('pessoa_fisica')
+  async deletePessoas(@Body() body: any): Promise<any> {
+    await this.appService.deletePessoas(body.pk);
+  }
+
+  @Delete('pleito')
+  async deletePleitos(@Body() body: any): Promise<any> {
+    await this.appService.deletePleitos(body.pk);
+  }
+
+  @Delete('programa_partido')
+  async deleteProgramas(@Body() body: any): Promise<any> {
+    await this.appService.deleteProgramas(body.pk);
+  }
+
+  @Delete('partido')
+  async deletePartidos(@Body() body: any): Promise<any> {
+    await this.appService.deletePartidos(body.pk);
+  }
+
+  @Delete('processo_judicial')
+  async deleteProcessos(@Body() body: any): Promise<any> {
+    await this.appService.deleteProcessos(body.pk);
+  }
+
+  @Delete('candidatura')
+  async deleteCandidaturas(@Body() body: any): Promise<any> {
+    await this.appService.deleteCandidaturas(body.pk);
+  }
+
+  @Delete('doacao_pf')
+  async deleteDoacoesPf(@Body() body: any): Promise<any> {
+    await this.appService.deleteDoacoesPf(body.pk);
+  }
+
+  @Delete('doacao_pj')
+  async deleteDoacoesPj(@Body() body: any): Promise<any> {
+    await this.appService.deleteDoacoesPj(body.pk);
+  }
+
+  @Delete('equipe')
+  async deleteEquipes(@Body() body: any): Promise<any> {
+    await this.appService.deleteEquipes(body.pk);
+  }
+
+  @Delete('apoiador')
+  async deleteApoiadores(@Body() body: any): Promise<any> {
+    await this.appService.deleteApoiadores(body.pk);
+  }
 }
