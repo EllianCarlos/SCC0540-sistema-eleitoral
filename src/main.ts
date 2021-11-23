@@ -36,6 +36,17 @@ async function bootstrap() {
       });
     }
   });
+  hbs.registerHelper('better_date_hour', function (date: Date) {
+    if (date) {
+      return date.toLocaleString('pt-BR', {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+      });
+    }
+  });
   app.setViewEngine('hbs');
 
   await app.listen(3000);

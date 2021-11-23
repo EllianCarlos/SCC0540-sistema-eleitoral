@@ -13,7 +13,8 @@ import {
   processo_judicial,
   programa_partido,
 } from './database/models';
-import { relatorio } from './database/models/relatotio';
+import { ficha_limpa } from './database/models/ficha_limpa';
+import { relatorio } from './database/models/relatorio';
 import { TransformerService } from './transformer/transformer.service';
 
 @Injectable()
@@ -22,6 +23,21 @@ export class AppService {
     private readonly databaseService: DatabaseService,
     private readonly transformerService: TransformerService,
   ) {}
+
+  async getFichaLimpa() {
+    const ficha_limpa_result = await this.databaseService.executeQuery(`SELECT p.cpf, p.nome, p.data_nasc
+      FROM pessoa_fisica p
+      LEFT OUTER JOIN 
+        (SELECT *
+        FROM processo_judicial
+        WHERE (extract(year from current_date) < (extract(year from data_termino) + 5)) AND (procedente = true)) ficha_suja
+      ON p.cpf = ficha_suja.cpf
+      WHERE ficha_suja.cpf IS NULL AND p.funcao = 'Candidato'
+      ORDER BY p.nome`);
+    console.log(ficha_limpa_result);
+
+    return this.transformerService.queryResultToObject<ficha_limpa>(ficha_limpa_result);
+  }
 
   public async generateRelatorio(
     cargo_c: string,

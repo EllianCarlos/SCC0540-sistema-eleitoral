@@ -33,11 +33,11 @@
             </svg>
           </a>
           <ul class='nav col-6 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0'>
-            <li><a href='/' class='nav-link px-3 text-secondary'>Home</a></li>
+            <li><a href='/' class='nav-link px-3 text-white'>Home</a></li>
             <li><a href='cargos' class='nav-link px-3 text-white'>Cargos</a></li>
             <li><a href='pessoas' class='nav-link px-3 text-white'>Pessoa Fisica</a></li>
             <li><a href='pleitos' class='nav-link px-3 text-white'>Pleito</a></li>
-            <li><a href='#' class='nav-link px-3 text-white'>Programa</a></li>
+            <li><a href='#' class='nav-link px-3 text-secondary'>Programa</a></li>
             <li><a href='partidos' class='nav-link px-3 text-white'>Partido</a></li>
             <li><a href='processos' class='nav-link px-3 text-white'>Processo Judicial</a></li>
             <li><a href='candidaturas' class='nav-link px-3 text-white'>Candidatura</a></li>
@@ -45,6 +45,7 @@
             <li><a href='doacoesPj' class='nav-link px-3 text-white'>Doações PJ</a></li>
             <li><a href='equipes' class='nav-link px-3 text-white'>Equipe</a></li>
             <li><a href='apoiadores' class='nav-link px-3 text-white'>Apoiador </a></li>
+            <li><a href='ficha_limpa' class='nav-link px-3 text-white'>Ficha Limpa</a></li>
           </ul>
         </div>
       {{!-- </div> --}}
@@ -77,7 +78,7 @@
                   {{this.descricao}}
                 </td>
                 <td>
-                  {{this.data_criacao}}
+                  {{better_date this.data_criacao}}
                 </td>
                 <td>
                   <button type="button" class="btn btn-danger {{concat @index 'dclass'}}"onclick="{{delete ../table @index this.id}}">Remover</button>

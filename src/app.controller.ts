@@ -13,6 +13,15 @@ export class AppController {
     };
   }
 
+  @Get('ficha_limpa')
+  @Render('ficha_limpa')
+  async getFichaLimpas(): Promise<any> {
+    const candidatos = await this.appService.getFichaLimpa();
+    return {
+      candidatos,
+    };
+  }
+
   @Get('relatorio')
   @Render('relatorio')
   async relatorio(
