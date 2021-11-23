@@ -46,13 +46,17 @@ export class AppService {
     pais: string,
     estado: string | null = null,
     municipio: string | null = null,
+    vencedores = false,
   ): Promise<relatorio[]> {
     if (cargo_c && pais && abrangencia && ano) {
-      const result_limit = await this.databaseService.executeQuery(
-        'SELECT * FROM CARGO C WHERE C.ABRANGENCIA = $2 AND C.NOME = $1',
-        [cargo_c, abrangencia],
-      );
-      const limit = result_limit.rows[0].votos;
+      let limit;
+      if (vencedores) {
+        const result_limit = await this.databaseService.executeQuery(
+          'SELECT * FROM CARGO C WHERE C.ABRANGENCIA = $2 AND C.NOME = $1',
+          [cargo_c, abrangencia],
+        );
+        limit = result_limit.rows[0].votos;
+      }
       let q = `
         SELECT 
           C.CANDIDATO, PFC.NOME, PFC.DATA_NASC, PFC.FUNCAO AS "funcao_atual", 
@@ -79,7 +83,11 @@ export class AppService {
         q += `AND C.MUNICIPIO = $6 `;
         values.push(municipio);
       }
-      q += `ORDER BY C.NUM_VOTOS DESC LIMIT ${limit} ;`;
+      q += `ORDER BY C.NUM_VOTOS DESC`;
+      if (vencedores) {
+        q += ` LIMIT ${limit}`;
+      }
+      q += ';';
       const result = await this.databaseService.executeQuery(q, values);
       return this.transformerService.queryResultToObject<relatorio>(result);
     } else {

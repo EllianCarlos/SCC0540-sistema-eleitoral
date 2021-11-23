@@ -31,6 +31,7 @@ export class AppController {
     @Query('pais') pais: string,
     @Query('estado') estado: string | null = null,
     @Query('municipio') municipio: string | null = null,
+    @Query('vencedores') vencedores: any = null,
   ): Promise<any> {
     const candidaturas = await this.appService.generateRelatorio(
       decodeURIComponent(cargo_c),
@@ -39,6 +40,7 @@ export class AppController {
       decodeURIComponent(pais),
       decodeURIComponent(estado),
       decodeURIComponent(municipio),
+      !!vencedores,
     );
     return {
       candidaturas,
