@@ -49,7 +49,7 @@ async function order(orderBy) {
         orderBy,
       },
     });
-    window.location.replace(url);
+    window.location.href = url;
   } catch (e) {
     console.error(e);
     throw new Error('Erro ao ordenar');
