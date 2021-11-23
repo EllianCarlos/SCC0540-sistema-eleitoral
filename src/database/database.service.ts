@@ -61,13 +61,13 @@ export class DatabaseService {
     const result = await this.pool.query('SELECT migration_name FROM migrations');
     const migrationsNames = result.rows.map((row) => row.migration_name);
 
-    await Promise.all(
-      migrations.map(async (migration: Migration): Promise<any> => {
-        if (!migrationsNames.includes(migration.MigrationName)) {
-          return this.executeMigration(migration);
-        }
-      }),
-    );
+    for (let i = 0; i < migrations.length; i++) {
+      const actual_migration = migrations[i];
+      if (!migrationsNames.includes(actual_migration.MigrationName)) {
+        await this.executeMigration(actual_migration);
+      }
+    }
+
     Logger.log('All migrations were successfully executed');
   }
 

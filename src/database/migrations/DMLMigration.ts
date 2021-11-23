@@ -7,13 +7,13 @@ export class DMLMigration implements Migration {
   async up(databaseService: DatabaseService): Promise<void> {
     databaseService.executeQuery(`
       -- Cargos
-      INSERT INTO cargo VALUES('Presidente', 'Federal');
-      INSERT INTO cargo VALUES('Deputado Federal', 'Federal');
-      INSERT INTO cargo VALUES('Governador', 'Estadual');
-      INSERT INTO cargo VALUES('Senador', 'Estadual');
-      INSERT INTO cargo VALUES('Deputado Estadual', 'Estadual');
-      INSERT INTO cargo VALUES('Prefeito', 'Municipal');
-      INSERT INTO cargo VALUES('Vereador', 'Municipal');
+      INSERT INTO cargo VALUES('Presidente', 'Federal', 1);
+      INSERT INTO cargo VALUES('Deputado Federal', 'Federal', 30);
+      INSERT INTO cargo VALUES('Governador', 'Estadual', 1);
+      INSERT INTO cargo VALUES('Senador', 'Estadual', 2);
+      INSERT INTO cargo VALUES('Deputado Estadual', 'Estadual', 45);
+      INSERT INTO cargo VALUES('Prefeito', 'Municipal', 1);
+      INSERT INTO cargo VALUES('Vereador', 'Municipal', 30);
 
       -- Candidatos
       INSERT INTO pessoa_fisica VALUES('5302054755','Tiago da Silva','1957/03/31','Candidato');
@@ -91,58 +91,58 @@ export class DMLMigration implements Migration {
       INSERT INTO pessoa_fisica VALUES('0324674902','Wellington Minussi','1964/06/17','Candidato');
 
       -- Doadores
-      INSERT INTO pessoa_fisica VALUES('4023033408','Julieta Pinto','1982/08/23','Doador');
-      INSERT INTO pessoa_fisica VALUES('2346293781','Antônio Barros','1980/09/23','Doador');
-      INSERT INTO pessoa_fisica VALUES('3929608640','Lavinia Rodrigues','1979/05/03','Doador');
-      INSERT INTO pessoa_fisica VALUES('3790366126','Gabriel Melo','1999/10/17','Doador');
-      INSERT INTO pessoa_fisica VALUES('3825776197','Leonardo Dias','1981/12/24','Doador');
-      INSERT INTO pessoa_fisica VALUES('3088853590','Estevan Cunha','1991/11/17','Doador');
-      INSERT INTO pessoa_fisica VALUES('7922776203','Martim Barros','1954/05/20','Doador');
-      INSERT INTO pessoa_fisica VALUES('8005893879','Igor Carvalho','1954/09/14','Doador');
-      INSERT INTO pessoa_fisica VALUES('4282883261','Lílian Pereira','1984/02/27','Doador');
-      INSERT INTO pessoa_fisica VALUES('3372152085','Bianca Fernandes','1989/05/25','Doador');
-      INSERT INTO pessoa_fisica VALUES('7246300094','Rafael Marcon','1977/05/03','Doador');
-      INSERT INTO pessoa_fisica VALUES('8612914437','Mateus Souza','1961/06/24','Doador');
-      INSERT INTO pessoa_fisica VALUES('3123582728','Vitória da Silva','1998/01/08','Doador');
-      INSERT INTO pessoa_fisica VALUES('2041282997','Bruno Ribeiro','1967/10/12','Doador');
-      INSERT INTO pessoa_fisica VALUES('3051374644','Gabriela Santos','1975/10/02','Doador');
-      INSERT INTO pessoa_fisica VALUES('6088536663','Vinícius Azevedo','1970/09/08','Doador');
-      INSERT INTO pessoa_fisica VALUES('4641419840','Aline Moraes','1957/11/25','Doador');
-      INSERT INTO pessoa_fisica VALUES('6513182817','Lavinia Martins','1966/07/07','Doador');
-      INSERT INTO pessoa_fisica VALUES('4115977160','Laura Oliveira','1972/07/26','Doador');
-      INSERT INTO pessoa_fisica VALUES('3879786884','Ronaldinho Gaúcho','1991/09/29','Doador');
-      INSERT INTO pessoa_fisica VALUES('5975109954','Gabrielly Costa','2002/05/20','Doador');
-      INSERT INTO pessoa_fisica VALUES('4618190698','Vitória Maria','1981/04/12','Doador');
-      INSERT INTO pessoa_fisica VALUES('9572859408','Pedro Sierra','1992/10/03','Doador');
-      INSERT INTO pessoa_fisica VALUES('2448265379','Fernando Diniz','1968/01/24','Doador');
+      INSERT INTO pessoa_fisica VALUES('4023033408','Julieta Pinto','1982/08/30 09:22:00','Doador');
+      INSERT INTO pessoa_fisica VALUES('2346293781','Antônio Barros','1980/09/23 17:32:00','Doador');
+      INSERT INTO pessoa_fisica VALUES('3929608640','Lavinia Rodrigues','1979/05/03 07:12:00','Doador');
+      INSERT INTO pessoa_fisica VALUES('3790366126','Gabriel Melo','1999/10/17 16:20:00','Doador');
+      INSERT INTO pessoa_fisica VALUES('3825776197','Leonardo Dias','1981/12/24 21:20:00','Doador');
+      INSERT INTO pessoa_fisica VALUES('3088853590','Estevan Cunha','1991/11/17 09:13:00','Doador');
+      INSERT INTO pessoa_fisica VALUES('7922776203','Martim Barros','1954/05/20 16:12:00','Doador');
+      INSERT INTO pessoa_fisica VALUES('8005893879','Igor Carvalho','1954/09/14 15:14:00','Doador');
+      INSERT INTO pessoa_fisica VALUES('4282883261','Lílian Pereira','1984/02/27 20:20:00','Doador');
+      INSERT INTO pessoa_fisica VALUES('3372152085','Bianca Fernandes','1989/05/25 19:08:00','Doador');
+      INSERT INTO pessoa_fisica VALUES('7246300094','Rafael Marcon','1977/05/03 19:17:00','Doador');
+      INSERT INTO pessoa_fisica VALUES('8612914437','Mateus Souza','1961/06/24 10:13:00','Doador');
+      INSERT INTO pessoa_fisica VALUES('3123582728','Vitória da Silva','1998/01/08 13:21:00','Doador');
+      INSERT INTO pessoa_fisica VALUES('2041282997','Bruno Ribeiro','1967/10/12 17:09:00','Doador');
+      INSERT INTO pessoa_fisica VALUES('3051374644','Gabriela Santos','1975/10/02 18:16:00','Doador');
+      INSERT INTO pessoa_fisica VALUES('6088536663','Vinícius Azevedo','1970/09/08 15:55:00','Doador');
+      INSERT INTO pessoa_fisica VALUES('4641419840','Aline Moraes','1957/11/25 14:18:00','Doador');
+      INSERT INTO pessoa_fisica VALUES('6513182817','Lavinia Martins','1966/07/07 14:14:00','Doador');
+      INSERT INTO pessoa_fisica VALUES('4115977160','Laura Oliveira','1972/07/26 07:19:00','Doador');
+      INSERT INTO pessoa_fisica VALUES('3879786884','Ronaldinho Gaúcho','1991/09/29 22:07:00','Doador');
+      INSERT INTO pessoa_fisica VALUES('5975109954','Gabrielly Costa','2002/05/20 10:44:00','Doador');
+      INSERT INTO pessoa_fisica VALUES('4618190698','Vitória Maria','1981/04/12 09:13:00','Doador');
+      INSERT INTO pessoa_fisica VALUES('9572859408','Pedro Sierra','1992/10/03 12:34:00','Doador');
+      INSERT INTO pessoa_fisica VALUES('2448265379','Fernando Diniz','1968/01/24 10:46:00','Doador');
 
       -- Apoiadores
-      INSERT INTO pessoa_fisica VALUES('1027090876','Julia Alves','1992/05/28','Apoiador');
-      INSERT INTO pessoa_fisica VALUES('3369576943','Luana Souza','1960/08/04','Apoiador');
-      INSERT INTO pessoa_fisica VALUES('3506693110','Juliana Freire','1985/02/24','Apoiador');
-      INSERT INTO pessoa_fisica VALUES('7765463081','Rubens Inácio','1983/05/06','Apoiador');
-      INSERT INTO pessoa_fisica VALUES('7407926836','Lara Cunha','1954/04/07','Apoiador');
-      INSERT INTO pessoa_fisica VALUES('7087836799','Eduardo Paziani','1972/10/02','Apoiador');
-      INSERT INTO pessoa_fisica VALUES('6144491613','Sofia Castro','1978/11/08','Apoiador');
-      INSERT INTO pessoa_fisica VALUES('1430960249','Neiva Vieira','1958/08/21','Apoiador');
-      INSERT INTO pessoa_fisica VALUES('8434130580','Felipe Cardoso','1963/10/03','Apoiador');
-      INSERT INTO pessoa_fisica VALUES('9074100257','Giovane de Sá','1956/01/08','Apoiador');
-      INSERT INTO pessoa_fisica VALUES('4221326375','Rubens Barrichello','1958/01/28','Apoiador');
-      INSERT INTO pessoa_fisica VALUES('2259906777','Iara Albuquerque','1999/07/30','Apoiador');
-      INSERT INTO pessoa_fisica VALUES('2162953848','Humberto Acessorio','1958/11/11','Apoiador');
-      INSERT INTO pessoa_fisica VALUES('2144102579','Larissa Pinto','1951/08/28','Apoiador');
-      INSERT INTO pessoa_fisica VALUES('9265800657','Emilly Lima','1966/07/19','Apoiador');
-      INSERT INTO pessoa_fisica VALUES('5445837109','Neymar Jr','1992/02/05','Apoiador');
-      INSERT INTO pessoa_fisica VALUES('4516254665','Ágatha Barbosa','1966/12/15','Apoiador');
-      INSERT INTO pessoa_fisica VALUES('6512100755','Paulo Moraes','1979/07/21','Apoiador');
-      INSERT INTO pessoa_fisica VALUES('4058751547','Gustavo Paniago','1980/12/26','Apoiador');
-      INSERT INTO pessoa_fisica VALUES('6639837393','Selma Silva','1998/10/29','Apoiador');
-      INSERT INTO pessoa_fisica VALUES('7553383752','Tiago Leifert','1949/04/07','Apoiador');
-      INSERT INTO pessoa_fisica VALUES('6110126191','Matilde Pereira','1959/04/06','Apoiador');
-      INSERT INTO pessoa_fisica VALUES('2728374057','Rodolfo Ferreira','1970/11/10','Apoiador');
-      INSERT INTO pessoa_fisica VALUES('2194803592','Kléber Passos','1980/08/25','Apoiador');
-      INSERT INTO pessoa_fisica VALUES('2623309013','Luan Cunha','1984/06/09','Apoiador');
-      INSERT INTO pessoa_fisica VALUES('5844351217','Velma Santana','1972/03/13','Apoiador');
+      INSERT INTO pessoa_fisica VALUES('1027090876','Julia Alves','1992/05/28 21:03:00','Apoiador');
+      INSERT INTO pessoa_fisica VALUES('3369576943','Luana Souza','1960/08/04 23:19:00','Apoiador');
+      INSERT INTO pessoa_fisica VALUES('3506693110','Juliana Freire','1985/02/24 00:08:24','Apoiador');
+      INSERT INTO pessoa_fisica VALUES('7765463081','Rubens Inácio','1983/05/06 20:17:21','Apoiador');
+      INSERT INTO pessoa_fisica VALUES('7407926836','Lara Cunha','1954/04/07 19:12:00','Apoiador');
+      INSERT INTO pessoa_fisica VALUES('7087836799','Eduardo Paziani','1972/10/02 18:03:00','Apoiador');
+      INSERT INTO pessoa_fisica VALUES('6144491613','Sofia Castro','1978/11/08 10:12:20','Apoiador');
+      INSERT INTO pessoa_fisica VALUES('1430960249','Neiva Vieira','1958/08/21 13:12:20','Apoiador');
+      INSERT INTO pessoa_fisica VALUES('8434130580','Felipe Cardoso','1963/10/03 02:30:40','Apoiador');
+      INSERT INTO pessoa_fisica VALUES('9074100257','Giovane de Sá','1956/01/08 20:19:30','Apoiador');
+      INSERT INTO pessoa_fisica VALUES('4221326375','Rubens Barrichello','1958/01/28 15:20:03','Apoiador');
+      INSERT INTO pessoa_fisica VALUES('2259906777','Iara Albuquerque','1999/07/30 20:19:03','Apoiador');
+      INSERT INTO pessoa_fisica VALUES('2162953848','Humberto Acessorio','1958/11/11 13:11:14','Apoiador');
+      INSERT INTO pessoa_fisica VALUES('2144102579','Larissa Pinto','1951/08/28 03:14:15','Apoiador');
+      INSERT INTO pessoa_fisica VALUES('9265800657','Emilly Lima','1966/07/19 10:15:21','Apoiador');
+      INSERT INTO pessoa_fisica VALUES('5445837109','Neymar Jr','1992/02/05 20:19:09','Apoiador');
+      INSERT INTO pessoa_fisica VALUES('4516254665','Ágatha Barbosa','1966/12/15 15:40:20','Apoiador');
+      INSERT INTO pessoa_fisica VALUES('6512100755','Paulo Moraes','1979/07/21 07:08:09','Apoiador');
+      INSERT INTO pessoa_fisica VALUES('4058751547','Gustavo Paniago','1980/12/26 22:40:30','Apoiador');
+      INSERT INTO pessoa_fisica VALUES('6639837393','Selma Silva','1998/10/29 23:50:00','Apoiador');
+      INSERT INTO pessoa_fisica VALUES('7553383752','Tiago Leifert','1949/04/07 19:34:03','Apoiador');
+      INSERT INTO pessoa_fisica VALUES('6110126191','Matilde Pereira','1959/04/06 14:01:31','Apoiador');
+      INSERT INTO pessoa_fisica VALUES('2728374057','Rodolfo Ferreira','1970/11/10 21:06:15','Apoiador');
+      INSERT INTO pessoa_fisica VALUES('2194803592','Kléber Passos','1980/08/25 15:20:00','Apoiador');
+      INSERT INTO pessoa_fisica VALUES('2623309013','Luan Cunha','1984/06/09 19:24:08','Apoiador');
+      INSERT INTO pessoa_fisica VALUES('5844351217','Velma Santana','1972/03/13 06:10:02','Apoiador');
 
       -- Pleitos
       INSERT INTO pleito VALUES(1,'1989/11/15');
@@ -264,28 +264,28 @@ export class DMLMigration implements Migration {
       INSERT INTO candidatura VALUES('4305702509',2012,'Partido 4','P4',null,null,null,'Vereador','Municipal',13,33823,'Ribeirão Preto','São Paulo','Brasil');
 
       -- Doações PJ
-      INSERT INTO doacao_pj VALUES('55324860152','4794982902',2010,'Empresa 1',5000.00,'2010/09/14');
-      INSERT INTO doacao_pj VALUES('87195556969','4794982902',2010,'Empresa 2',9999.00,'2010/09/20');
-      INSERT INTO doacao_pj VALUES('22046057006','9386319500',2012,'Empresa 3',7250.00,'2012/08/30');
-      INSERT INTO doacao_pj VALUES('68640993664','9767332713',2010,'Empresa 4',100.00,'2010/10/01');
-      INSERT INTO doacao_pj VALUES('52428344129','1023347967',2012,'Empresa 5',500.50,'2012/09/22');
-      INSERT INTO doacao_pj VALUES('39271932505','1023347967',2012,'Empresa 6',1000.00,'2012/09/13');
-      INSERT INTO doacao_pj VALUES('89308044935','5906686639',2010,'Empresa 7',2354.39,'2010/10/02');
-      INSERT INTO doacao_pj VALUES('25634917263','7454705480',2010,'Empresa 8',5000.00,'2010/08/29');
-      INSERT INTO doacao_pj VALUES('15918385770','4581143688',2010,'Empresa 9',10.00,'2010/09/14');
-      INSERT INTO doacao_pj VALUES('83753685287','4581143688',2010,'Empresa 10',8900.00,'2010/08/14');
+      INSERT INTO doacao_pj VALUES('55324860152','4794982902',2010,'Empresa 1',5000.00,'2010/09/14  21:03:00');
+      INSERT INTO doacao_pj VALUES('87195556969','4794982902',2010,'Empresa 2',9999.00,'2010/09/20  21:03:00');
+      INSERT INTO doacao_pj VALUES('22046057006','9386319500',2012,'Empresa 3',7250.00,'2012/08/30 21:03:00');
+      INSERT INTO doacao_pj VALUES('68640993664','9767332713',2010,'Empresa 4',100.00,'2010/10/01 21:03:00');
+      INSERT INTO doacao_pj VALUES('52428344129','1023347967',2012,'Empresa 5',500.50,'2012/09/22 21:03:00');
+      INSERT INTO doacao_pj VALUES('39271932505','1023347967',2012,'Empresa 6',1000.00,'2012/09/13 21:03:00');
+      INSERT INTO doacao_pj VALUES('89308044935','5906686639',2010,'Empresa 7',2354.39,'2010/10/02 21:03:00');
+      INSERT INTO doacao_pj VALUES('25634917263','7454705480',2010,'Empresa 8',5000.00,'2010/08/29 21:03:00');
+      INSERT INTO doacao_pj VALUES('15918385770','4581143688',2010,'Empresa 9',10.00,'2010/09/14  21:03:00');
+      INSERT INTO doacao_pj VALUES('83753685287','4581143688',2010,'Empresa 10',8900.00,'2010/08/14 21:03:00');
 
       -- Doações PF
-      INSERT INTO doacao_pf VALUES('3790366126','4794982902',2010,'2010/09/14',5000.00);
-      INSERT INTO doacao_pf VALUES('4282883261','4794982902',2010,'2010/09/20',9999.00);
-      INSERT INTO doacao_pf VALUES('3051374644','9386319500',2012,'2012/08/30',7250.00);
-      INSERT INTO doacao_pf VALUES('3051374644','9767332713',2010,'2010/10/01',100.00);
-      INSERT INTO doacao_pf VALUES('6088536663','1023347967',2012,'2012/09/22',500.50);
-      INSERT INTO doacao_pf VALUES('6513182817','1023347967',2012,'2012/09/13',1000.00);
-      INSERT INTO doacao_pf VALUES('6513182817','5906686639',2010,'2010/10/02',2354.39);
-      INSERT INTO doacao_pf VALUES('2448265379','7454705480',2010,'2010/08/29',5000.00);
-      INSERT INTO doacao_pf VALUES('9572859408','4581143688',2010,'2010/09/14',10.00);
-      INSERT INTO doacao_pf VALUES('4618190698','4581143688',2010,'2010/08/14',8900.00);
+      INSERT INTO doacao_pf VALUES('3790366126','4794982902',2010,'2010/09/14 21:03:00',5000.00);
+      INSERT INTO doacao_pf VALUES('4282883261','4794982902',2010,'2010/09/20  21:03:00',9999.00);
+      INSERT INTO doacao_pf VALUES('3051374644','9386319500',2012,'2012/08/30  21:03:00',7250.00);
+      INSERT INTO doacao_pf VALUES('3051374644','9767332713',2010,'2010/10/01  21:03:00',100.00);
+      INSERT INTO doacao_pf VALUES('6088536663','1023347967',2012,'2012/09/22  21:03:00',500.50);
+      INSERT INTO doacao_pf VALUES('6513182817','1023347967',2012,'2012/09/13  21:03:00',1000.00);
+      INSERT INTO doacao_pf VALUES('6513182817','5906686639',2010,'2010/10/02  21:03:00',2354.39);
+      INSERT INTO doacao_pf VALUES('2448265379','7454705480',2010,'2010/08/29  21:03:00',5000.00);
+      INSERT INTO doacao_pf VALUES('9572859408','4581143688',2010,'2010/09/14  21:03:00',10.00);
+      INSERT INTO doacao_pf VALUES('4618190698','4581143688',2010,'2010/08/14  21:03:00',8900.00);
 
       -- Equipes
       INSERT INTO equipe VALUES('9767332713',2010,111,'Equipe 1',300);

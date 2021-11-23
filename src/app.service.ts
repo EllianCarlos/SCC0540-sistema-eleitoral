@@ -44,10 +44,19 @@ export class AppService {
     abrangencia: string,
     ano: string,
     pais: string,
-    estado: string,
-    municipio: string | null,
+    estado: string | null = null,
+    municipio: string | null = null,
+    vencedores = false,
   ): Promise<relatorio[]> {
     if (cargo_c && pais && abrangencia && ano) {
+      let limit;
+      if (vencedores) {
+        const result_limit = await this.databaseService.executeQuery(
+          'SELECT * FROM CARGO C WHERE C.ABRANGENCIA = $2 AND C.NOME = $1',
+          [cargo_c, abrangencia],
+        );
+        limit = result_limit.rows[0].eleitos;
+      }
       let q = `
         SELECT 
           C.CANDIDATO, PFC.NOME, PFC.DATA_NASC, PFC.FUNCAO AS "funcao_atual", 
@@ -66,20 +75,43 @@ export class AppService {
         WHERE C.PAIS = $4 AND C.ABRANGENCIA = $2 AND C.ANO_CANDIDATURA = $3 AND C.CARGO = $1
       `;
       const values = [cargo_c, abrangencia, ano, pais];
-      if (estado) {
-        q += `AND C.ESTADO = $5`;
+      if (estado && estado != 'null') {
+        q += `AND C.ESTADO = $5 `;
         values.push(estado);
       }
-      if (municipio) {
-        q += `AND C.MUNICIPIO = $6`;
+      if (municipio && estado && municipio != 'null') {
+        q += `AND C.MUNICIPIO = $6 `;
         values.push(municipio);
       }
-      q += `ORDER BY C.NUM_VOTOS DESC;`;
+      q += `ORDER BY C.NUM_VOTOS DESC`;
+      if (vencedores) {
+        q += ` LIMIT ${limit}`;
+      }
+      q += ';';
       const result = await this.databaseService.executeQuery(q, values);
       return this.transformerService.queryResultToObject<relatorio>(result);
     } else {
       throw new Error('Preciso de paramêtros!');
     }
+  }
+
+  public async orderByParam(orderBy: string): Promise<candidatura[]> {
+    let q = `
+        SELECT 
+          *
+        FROM CANDIDATURA C
+      `;
+    if (orderBy === 'Nome') {
+      q += `ORDER BY C.CANDIDATO;`;
+    }
+    if (orderBy === 'Ano') {
+      q += `ORDER BY C.ANO_CANDIDATURA;`;
+    }
+    if (orderBy === 'Cargo') {
+      q += `ORDER BY C.CARGO, C.ABRANGENCIA;`;
+    }
+    const result = await this.databaseService.executeQuery(q);
+    return this.transformerService.queryResultToObject<candidatura>(result);
   }
 
   public async getAllCargos(): Promise<cargo[]> {

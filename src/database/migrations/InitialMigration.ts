@@ -9,6 +9,7 @@ export class InitialMigration implements Migration {
       CREATE TABLE cargo(
         nome VARCHAR(50) NOT NULL,
         abrangencia VARCHAR(20) NOT NULL,
+        eleitos NUMERIC(20) NOT NULL,
         
         CONSTRAINT cargo_pk PRIMARY KEY(nome, abrangencia),
         CONSTRAINT cargo_ck CHECK(abrangencia IN ('Municipal', 'Estadual', 'Federal'))
@@ -99,7 +100,7 @@ export class InitialMigration implements Migration {
         ano_candidatura NUMERIC(10) NOT NULL,
         nome VARCHAR(50) NOT NULL,
         valor NUMERIC(6,2) DEFAULT 0 NOT NULL,
-        data_doacao DATE NOT NULL,
+        data_doacao TIMESTAMP NOT NULL,
         
         CONSTRAINT doacaopj_pk PRIMARY KEY(cnpj_doador, candidato, ano_candidatura),
         CONSTRAINT doacaopj_ck1 CHECK(ano_candidatura > 1988),
@@ -111,7 +112,7 @@ export class InitialMigration implements Migration {
         doador VARCHAR(11) NOT NULL,
         candidato VARCHAR(11) NOT NULL,
         ano_candidatura NUMERIC(10) NOT NULL,
-        data_hora_doacao DATE NOT NULL,
+        data_hora_doacao TIMESTAMP NOT NULL,
         valor NUMERIC(6,2) DEFAULT 0 NOT NULL,
         
         CONSTRAINT doacaopf_pk PRIMARY KEY(doador, candidato, ano_candidatura, data_hora_doacao),
