@@ -44,8 +44,8 @@ export class AppService {
     abrangencia: string,
     ano: string,
     pais: string,
-    estado: string,
-    municipio: string | null,
+    estado: string | null = null,
+    municipio: string | null = null,
   ): Promise<relatorio[]> {
     if (cargo_c && pais && abrangencia && ano) {
       let q = `
@@ -66,12 +66,12 @@ export class AppService {
         WHERE C.PAIS = $4 AND C.ABRANGENCIA = $2 AND C.ANO_CANDIDATURA = $3 AND C.CARGO = $1
       `;
       const values = [cargo_c, abrangencia, ano, pais];
-      if (estado) {
-        q += `AND C.ESTADO = $5`;
+      if (estado && estado != 'null') {
+        q += `AND C.ESTADO = $5 `;
         values.push(estado);
       }
-      if (municipio) {
-        q += `AND C.MUNICIPIO = $6`;
+      if (municipio && estado && municipio != 'null') {
+        q += `AND C.MUNICIPIO = $6 `;
         values.push(municipio);
       }
       q += `ORDER BY C.NUM_VOTOS DESC;`;

@@ -29,10 +29,17 @@ export class AppController {
     @Query('abrangencia') abrangencia: string,
     @Query('ano') ano: string,
     @Query('pais') pais: string,
-    @Query('estado') estado: string = null,
-    @Query('municipio') municipio: string = null,
+    @Query('estado') estado: string | null = null,
+    @Query('municipio') municipio: string | null = null,
   ): Promise<any> {
-    const candidaturas = await this.appService.generateRelatorio(cargo_c, abrangencia, ano, pais, estado, municipio);
+    const candidaturas = await this.appService.generateRelatorio(
+      decodeURIComponent(cargo_c),
+      decodeURIComponent(abrangencia),
+      decodeURIComponent(ano),
+      decodeURIComponent(pais),
+      decodeURIComponent(estado),
+      decodeURIComponent(municipio),
+    );
     return {
       candidaturas,
     };
@@ -41,7 +48,7 @@ export class AppController {
   @Get('order')
   @Render('order')
   async order(@Query('orderBy') orderBy: string): Promise<any> {
-    const candidaturas = await this.appService.orderByParam(orderBy);
+    const candidaturas = await this.appService.orderByParam(decodeURIComponent(orderBy));
     return {
       candidaturas,
     };
