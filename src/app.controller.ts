@@ -38,6 +38,15 @@ export class AppController {
     };
   }
 
+  @Get('order')
+  @Render('order')
+  async order(@Query('orderBy') orderBy: string): Promise<any> {
+    const candidaturas = await this.appService.orderByParam(orderBy);
+    return {
+      candidaturas,
+    };
+  }
+
   @Get('cargos')
   @Render('cargos')
   async cargos(): Promise<any> {

@@ -82,6 +82,25 @@ export class AppService {
     }
   }
 
+  public async orderByParam(orderBy: string): Promise<candidatura[]> {
+    let q = `
+        SELECT 
+          *
+        FROM CANDIDATURA C
+      `;
+    if (orderBy === 'Nome') {
+      q += `ORDER BY C.CANDIDATO;`;
+    }
+    if (orderBy === 'Ano') {
+      q += `ORDER BY C.ANO_CANDIDATURA;`;
+    }
+    if (orderBy === 'Cargo') {
+      q += `ORDER BY C.CARGO, C.ABRANGENCIA;`;
+    }
+    const result = await this.databaseService.executeQuery(q);
+    return this.transformerService.queryResultToObject<candidatura>(result);
+  }
+
   public async getAllCargos(): Promise<cargo[]> {
     const cargosResults = await this.databaseService.executeQuery('SELECT * FROM cargo');
 
