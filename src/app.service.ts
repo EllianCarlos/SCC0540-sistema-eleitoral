@@ -55,7 +55,7 @@ export class AppService {
           'SELECT * FROM CARGO C WHERE C.ABRANGENCIA = $2 AND C.NOME = $1',
           [cargo_c, abrangencia],
         );
-        limit = result_limit.rows[0].votos;
+        limit = result_limit.rows[0].eleitos;
       }
       let q = `
         SELECT 

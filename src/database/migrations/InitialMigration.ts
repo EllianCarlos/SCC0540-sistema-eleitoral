@@ -9,7 +9,7 @@ export class InitialMigration implements Migration {
       CREATE TABLE cargo(
         nome VARCHAR(50) NOT NULL,
         abrangencia VARCHAR(20) NOT NULL,
-        votos NUMERIC(20) NOT NULL,
+        eleitos NUMERIC(20) NOT NULL,
         
         CONSTRAINT cargo_pk PRIMARY KEY(nome, abrangencia),
         CONSTRAINT cargo_ck CHECK(abrangencia IN ('Municipal', 'Estadual', 'Federal'))
