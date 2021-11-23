@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Pool, PoolClient, PoolConfig, QueryResult } from 'pg';
+import { DMLMigration } from './migrations/DMLMigration';
 import { InitialMigration } from './migrations/InitialMigration';
 import { Migration } from './migrations/Migration';
 
@@ -50,7 +51,8 @@ export class DatabaseService {
       );`,
     );
     const initialMigration = new InitialMigration();
-    const migrations: Migration[] = [initialMigration];
+    const dmlMigration = new DMLMigration();
+    const migrations: Migration[] = [initialMigration, dmlMigration];
 
     const result = await this.pool.query('SELECT migration_name FROM migrations');
     const migrationsNames = result.rows.map((row) => row.migration_name);
